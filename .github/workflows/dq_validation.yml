@@ -15,3 +15,10 @@ jobs:
         run: pip install -r requirements.txt
       - name: Testi Çalıştır
         run: python dq_pipeline.py
+      - name: Slack Bildirimi Gönder
+        if: failure() # Sadece test başarısız (kırmızı) olursa çalışır
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: "❌ Veri kalite testi başarısız oldu! Detaylar için GitHub Actions'a bakabilirsin."
+          SLACK_COLOR: "#ff0000"  
