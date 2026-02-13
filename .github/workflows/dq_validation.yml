@@ -1,0 +1,17 @@
+name: Data Quality Check
+
+on: [push] # Her 'git push' yaptığında çalışsın
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python Kur
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Kütüphaneleri Yükle
+        run: pip install -r requirements.txt
+      - name: Testi Çalıştır
+        run: python dq_pipeline.py
