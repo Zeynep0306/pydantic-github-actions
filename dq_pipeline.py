@@ -43,11 +43,13 @@ def run_validation():
     df = df.head(100) 
     
     invalid_rows = 0
-    for _, row in df.iterrows():
+    for index, row in df.iterrows():
         try:
             AmazonOrderModel(**row.to_dict())
-        except:
+        except Exception as e:
             invalid_rows += 1
+            # BU SATIRI EKLE: Hatanın hangi satırda ve ne olduğunu yazdırır
+            print(f"Satır {index} hatası: {e}\n")
 
     if invalid_rows > 0:
         print(f"❌ Başarısız: {invalid_rows} adet hatalı satır bulundu.")
